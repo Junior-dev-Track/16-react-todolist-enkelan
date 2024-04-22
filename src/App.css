@@ -48,3 +48,11 @@ li {
   background-color: #0056b3;
   transform: scale(1.05);
 }
+
+.btn-todolist {
+  background-color: red;
+}
+
+.btn-todolist:hover {
+  background-color: rgb(155, 8, 8);
+}
