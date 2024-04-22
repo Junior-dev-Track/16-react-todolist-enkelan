@@ -8,44 +8,42 @@ export default function TodoList({ inputValue }) {
   const [todos, setTodos] = useState(initialTodos);
 
   const handleCheck = (id) => {
-    setTodos(
-      todos.map((todo) => {
-        if (todo.id === id) {
-          return {
-            ...todo,
-            done: !todo.done,
-          };
-        }
-        return todo;
-      })
-    );
+    setTodos((prevTodos) => {
+      return prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, done: !todo.done } : todo
+      );
+    });
   };
 
   const handleRemoveItem = (id) => {
     setTodos((prevTodos) => {
-      const updatedTodos = [...prevTodos];
-      const index = updatedTodos.findIndex((todo) => todo.id === id);
-      if (index !== -1) {
-        updatedTodos.splice(index, 1);
-      }
-      return updatedTodos;
+      return prevTodos.filter((todo) => todo.id !== id);
     });
   };
 
-  const handleAddTodo = () => {
-    const newTodo = {
-      id: todos.length + 1,
-      name: inputValue,
-      done: false,
-    };
-    setTodos(todos.concat(newTodo));
+  const handleAddTodo = (event) => {
+    if (
+      event.type === 'click' ||
+      (event.type === 'keypress' && event.key === 'Enter')
+    ) {
+      const newTodo = {
+        id: todos.length + 1,
+        name: inputValue,
+        done: false,
+      };
+      setTodos(todos.concat(newTodo));
+    }
   };
 
   useEffect(() => {
-    const button = document.querySelector('.btn');
+    const input = document.querySelector('.flexInputButton input');
+    const button = document.querySelector('.flexInputButton .btn');
+
+    input.addEventListener('keypress', handleAddTodo);
     button.addEventListener('click', handleAddTodo);
 
     return () => {
+      input.removeEventListener('keypress', handleAddTodo);
       button.removeEventListener('click', handleAddTodo);
     };
   }, [todos, inputValue]);
@@ -64,7 +62,8 @@ export default function TodoList({ inputValue }) {
           {todo.name}
           <button
             className="btn btn-todolist"
-            onClick={() => handleRemoveItem(todo.id)}>
+            onClick={() => handleRemoveItem(todo.id)}
+            disabled={!todo.done || todos.every((t) => !t.done)}>
             Delete
           </button>
         </li>

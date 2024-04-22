@@ -22,6 +22,8 @@ input {
 
 li {
   list-style: none;
+  padding: 0.5rem;
+  margin-right: 3rem;
 }
 
 .flexInputButton {
@@ -50,6 +52,7 @@ li {
 }
 
 .btn-todolist {
+  margin: 0.5rem;
   background-color: red;
 }
 
