@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import TodoList from './todolist';
-import CalendarComponent from './CalendarComponent';
+import TodoList from './components/todolist';
+import CalendarComponent from './components/CalendarComponent';
+import './style/App.css';
 
 export default function App() {
   const [inputValue, setInputValue] = useState('');

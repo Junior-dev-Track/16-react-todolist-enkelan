@@ -1,23 +1,46 @@
 import React, { useState, useEffect } from 'react';
+import { useLocalStorage } from './LocalStorage';
+import { EditIcon, DeleteIcon } from './EditIcon';
 
 export default function TodoList({ inputValue }) {
-  const initialTodos = [
+  const [todos, setTodos] = useLocalStorage('todos', [
     { id: 1, name: 'My first todo', done: false },
     { id: 2, name: 'My second todo', done: true },
-  ];
-  const [todos, setTodos] = useState(initialTodos);
+  ]);
+
+  const [editingId, setEditingId] = useState(null);
+  const [editingValue, setEditingValue] = useState('');
+
+  const handleEditClick = (id, text) => {
+    setEditingId(id);
+    setEditingValue(text); // Corrected from setEditingText to setEditingValue
+  };
 
   const handleCheck = (id) => {
-    setTodos((prevTodos) => {
-      return prevTodos.map((todo) =>
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
         todo.id === id ? { ...todo, done: !todo.done } : todo
-      );
-    });
+      )
+    );
+  };
+
+  const handleSaveEdit = (id) => {
+    setTodos((prevTodos) =>
+      prevTodos.map(
+        (todo) => (todo.id === id ? { ...todo, name: editingValue } : todo) // Corrected from editingText to editingValue
+      )
+    );
+    setEditingId(null);
+    setEditingValue('');
   };
 
   const handleRemoveItem = (id) => {
     setTodos((prevTodos) => {
-      return prevTodos.filter((todo) => todo.id !== id);
+      const todoToRemove = prevTodos.find((todo) => todo.id === id);
+      if (todoToRemove && todoToRemove.done) {
+        return prevTodos.filter((todo) => todo.id !== id);
+      }
+      return prevTodos;
     });
   };
 
@@ -60,12 +83,17 @@ export default function TodoList({ inputValue }) {
             onChange={() => handleCheck(todo.id)}
           />
           {todo.name}
-          <button
-            className="btn btn-todolist"
-            onClick={() => handleRemoveItem(todo.id)}
-            disabled={!todo.done || todos.every((t) => !t.done)}>
-            Delete
-          </button>
+          <div className="icon-container">
+            <EditIcon
+              onClick={() => handleEditClick(todo.id, todo.name)}
+              style={{ marginLeft: '10px' }}
+            />
+            <DeleteIcon
+              onClick={() => handleRemoveItem(todo.id)}
+              disabled={!todo.done}
+              style={{ marginLeft: '10px' }}
+            />
+          </div>
         </li>
       ))}
     </ul>

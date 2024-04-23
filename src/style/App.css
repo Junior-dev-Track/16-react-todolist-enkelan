@@ -1,0 +1,82 @@
+#root {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  max-width: auto;
+  margin: 0 auto;
+}
+
+body {
+  background: url('https://img.freepik.com/free-vector/circles-background-dark-tones_60389-166.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+input {
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+li {
+  list-style: none;
+  padding: 0.5rem;
+  margin-right: 3rem;
+}
+
+.flexInputButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.btn-todolist {
+  margin: 0.5rem;
+  margin-left: 11.5rem;
+}
+
+/* CSS */
+.icon-container {
+  position: relative;
+  display: inline-block;
+}
+
+.options-icons {
+  position: absolute;
+  top: 0;
+  left: 100%; /* Position the icons to the right of the MoreOptionsIcon */
+  display: flex;
+  align-items: center; /* Align icons vertically */
+}
+
+.edit-button,
+.delete-button {
+  display: none; /* Hide the buttons */
+}
+
+.edit-icon,
+.delete-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  /* Add any additional styling for the SVG icons here */
+}
