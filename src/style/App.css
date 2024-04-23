@@ -20,6 +20,9 @@ input {
 }
 
 li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   list-style: none;
   padding: 0.5rem;
   margin-right: 3rem;
@@ -57,26 +60,21 @@ li {
 .icon-container {
   position: relative;
   display: inline-block;
+  margin-left: 8rem;
 }
 
 .options-icons {
   position: absolute;
-  top: 0;
-  left: 100%; /* Position the icons to the right of the MoreOptionsIcon */
   display: flex;
-  align-items: center; /* Align icons vertically */
+  align-items: center;
 }
 
 .edit-button,
 .delete-button {
-  display: none; /* Hide the buttons */
+  display: none;
 }
 
 .edit-icon,
 .delete-icon {
   position: absolute;
-  top: 0;
-  left: 0;
-  cursor: pointer;
-  /* Add any additional styling for the SVG icons here */
 }

@@ -5,6 +5,7 @@ const EditIcon = ({ onClick, style, disabled, ...rest }) => {
     <svg
       width="50px"
       height="50px"
+      style={{ marginLeft: '10px' }}
       viewBox="0 0 1024 1024"
       class="icon"
       onClick={disabled ? undefined : onClick}
@@ -215,6 +216,7 @@ const DeleteIcon = ({ onClick, style, ...rest }) => {
     <svg
       width="50px"
       height="50px"
+      style={{ marginLeft: '10px' }}
       viewBox="0 0 1024 1024"
       onClick={onClick}
       style={{ ...style, cursor: 'pointer' }}
