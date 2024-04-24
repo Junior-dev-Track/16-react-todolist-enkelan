@@ -72,6 +72,8 @@ export default function TodoList({ inputValue }) {
     };
   }, [todos, inputValue]);
 
+  const todosLeft = todos.filter((todo) => !todo.done).length;
+
   return (
     <ul>
       {todos.map((todo) => (
