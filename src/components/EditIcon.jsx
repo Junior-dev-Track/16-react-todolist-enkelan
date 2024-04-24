@@ -9,8 +9,8 @@ const EditIcon = ({ onClick, style, disabled, ...rest }) => {
       viewBox="0 0 1024 1024"
       class="icon"
       onClick={disabled ? undefined : onClick}
-      style={{ ...style, cursor: 'pointer', opacity: disabled ? 0.5 : 1 }}
-      {...rest}
+      // style={{ ...style, cursor: 'pointer', opacity: disabled ? 0.5 : 1 }}
+      // {...rest}
       version="1.1"
       xmlns="http://www.w3.org/2000/svg">
       <path
@@ -219,8 +219,8 @@ const DeleteIcon = ({ onClick, style, ...rest }) => {
       style={{ marginLeft: '10px' }}
       viewBox="0 0 1024 1024"
       onClick={onClick}
-      style={{ ...style, cursor: 'pointer' }}
-      {...rest}
+      // style={{ ...style, cursor: 'pointer' }}
+      // {...rest}
       class="icon"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg">

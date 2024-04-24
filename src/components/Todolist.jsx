@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocalStorage } from './LocalStorage';
 import { EditIcon, DeleteIcon } from './EditIcon';
+import { FaCheck } from 'react-icons/fa';
 
 export default function TodoList({ inputValue }) {
   const [todos, setTodos] = useLocalStorage('todos', [
@@ -11,11 +12,6 @@ export default function TodoList({ inputValue }) {
   const [editingId, setEditingId] = useState(null);
   const [editingValue, setEditingValue] = useState('');
 
-  const handleEditClick = (id, text) => {
-    setEditingId(id);
-    setEditingValue(text); // Corrected from setEditingText to setEditingValue
-  };
-
   const handleCheck = (id) => {
     setTodos((prevTodos) =>
       prevTodos.map((todo) =>
@@ -24,10 +20,15 @@ export default function TodoList({ inputValue }) {
     );
   };
 
+  const handleEditClick = (id, text) => {
+    setEditingId(id);
+    setEditingValue(text);
+  };
+
   const handleSaveEdit = (id) => {
     setTodos((prevTodos) =>
-      prevTodos.map(
-        (todo) => (todo.id === id ? { ...todo, name: editingValue } : todo) // Corrected from editingText to editingValue
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, name: editingValue } : todo
       )
     );
     setEditingId(null);
@@ -82,12 +83,31 @@ export default function TodoList({ inputValue }) {
             checked={todo.done}
             onChange={() => handleCheck(todo.id)}
           />
-          {todo.name}
+          {editingId === todo.id ? (
+            <div className="editing-container">
+              <input
+                type="text"
+                value={editingValue}
+                onChange={(e) => setEditingValue(e.target.value)}
+                autoFocus
+              />
+              <FaCheck
+                className="save-icon"
+                onClick={() => handleSaveEdit(todo.id)}
+              />
+            </div>
+          ) : (
+            <span onDoubleClick={() => handleEditClick(todo.id, todo.name)}>
+              {todo.name}
+            </span>
+          )}
           <div className="icon-container">
-            <EditIcon
-              onClick={() => handleEditClick(todo.id, todo.name)}
-              style={{ marginLeft: '10px' }}
-            />
+            {editingId !== todo.id && (
+              <EditIcon
+                onClick={() => handleEditClick(todo.id, todo.name)}
+                style={{ marginLeft: '10px' }}
+              />
+            )}
             <DeleteIcon
               onClick={() => handleRemoveItem(todo.id)}
               disabled={!todo.done}
